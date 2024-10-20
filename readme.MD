@@ -4,5 +4,6 @@ needed packages
 
 nwg-look papirus-folders pywal qt5ct qt6ct walogram pywal-discord
 
+also install other packages form folders 
 
 if you wanna use zed theme just change the theme name to "wal"
