@@ -68,7 +68,7 @@ echo -e "\n${GREEN}${GLYPH} Building kvuntum theme with script build-kvuntum ${N
 python ~/.config/hypr/scripts/build-kvantum.py
 
 echo -e "\n${GREEN}${GLYPH} Running walogram (for telegram) ${NC}"
-walogram
+walogram -s
 
 echo -e "\n${GREEN}${GLYPH} Running pywal-discord (for discord) ${NC}"
 pywal-discord
