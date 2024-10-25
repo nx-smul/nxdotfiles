@@ -2,8 +2,7 @@ this is a personal hyprland config whick using end 4 hyprdots for generating pyw
 
 needed packages
 
-nwg-look papirus-folders pywal qt5ct qt6ct walogram pywal-discord
-
+nwg-look papirus-folders pywal qt5ct qt6ct walogram pywal-discord kde-material-you-colors 
 also install other packages form folders 
 
 kvlibadwaita and zed-theme-wal 

@@ -23,9 +23,10 @@ while true; do
 
         # Update the temporary file with the new wallpaper path
         echo $current_wallpaper > $temp_file
+    else
+        echo "Wallpaper has not changed, doing nothing."
     fi
 
     # Sleep for a few seconds before checking again
     sleep 10
 done
-
