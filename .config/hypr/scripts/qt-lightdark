@@ -20,16 +20,16 @@ while true; do
   # Determine if the theme has changed
   if [[ $current_theme != $previous_theme ]]; then
     if [[ $current_theme == *"dark"* ]]; then
-      notify-send "Dark theme is active."
       plasma-apply-colorscheme MaterialYouDark
+      notify-send "Dark theme is active." "Changing Banar to Dark Mode"
     else
-      notify-send "Light theme is active."
       plasma-apply-colorscheme MaterialYouLight
+      notify-send "Light theme is active." "Changing Banar to Light Mode"
     fi
     # Update the state file with the new theme
     echo "$current_theme" >"$theme_state_file"
   fi
 
   # Sleep for a minute before checking again
-  sleep 10
+  # sleep 10
 done
