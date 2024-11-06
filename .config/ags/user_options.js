@@ -7,12 +7,12 @@ const userConfigOptions = {
   "appearance": {
     "barRoundCorners": 0, // 0: No, 1: Yes
     "fakeScreenRounding": 0, // 0: None | 1: Always | 2: When not fullscreen
-   },
+  },
   'workspaces': {
-        'shown': 5, 
-   },
- 'weather': {
-    'city': "Dhaka",
+    'shown': 5,
+  },
+  'weather': {
+    'city': "Faridpur",
     'preferredUnit': "C", // Either C or F
   },
 }
