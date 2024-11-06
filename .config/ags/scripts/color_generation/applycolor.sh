@@ -127,9 +127,13 @@ apply_lightdark() {
   if [ "$lightdark" = "light" ]; then
     gsettings set org.gnome.desktop.interface color-scheme 'prefer-light'
     plasma-apply-colorscheme MaterialYouLight
+    sleep 0.1
+    sh /home/simp/.config/hypr/scripts/wal-light
   else
     gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
     plasma-apply-colorscheme MaterialYouDark
+    sleep 0.1
+    sh /home/simp/.config/hypr/scripts/wal-dark
   fi
 }
 
