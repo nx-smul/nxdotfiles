@@ -1,5 +1,9 @@
 import webcolors
 import subprocess
+import os
+
+color_path = os.path.expanduser("~/.cache/wal/colors")
+
 
 # Define the mapping of your desired colors
 color_map = {
@@ -26,11 +30,14 @@ color_map = {
     "violet": "#7E57C2",
     "white": "#E5E5E5",
     "adwaita": "#93C0EA",
-    "yellow": "#F9BD30"
+    "yellow": "#F9BD30",
 }
 
 # Convert color_map to RGB tuples
-color_map_rgb = {name: webcolors.hex_to_rgb(hex_code) for name, hex_code in color_map.items()}
+color_map_rgb = {
+    name: webcolors.hex_to_rgb(hex_code) for name, hex_code in color_map.items()
+}
+
 
 def closest_color(requested_color):
     min_colors = {}
@@ -41,13 +48,15 @@ def closest_color(requested_color):
         min_colors[(rd + gd + bd)] = name
     return min_colors[min(min_colors.keys())]
 
+
 def get_color_name(hex_color):
     requested_color = webcolors.hex_to_rgb(hex_color)
     closest_name = closest_color(requested_color)
     return closest_name
 
+
 # Read hex codes from .cache/wal/colors file
-with open('/home/simp/.cache/wal/colors', 'r') as file:
+with open(color_path, "r") as file:
     hex_codes = [line.strip() for line in file]
 
 # Get the nearest color name for each hex code
@@ -58,4 +67,4 @@ color_name = color_names[4]
 print(f"The 4th color is closest to: {color_name}")
 
 # Execute the papirus-folders command with the closest color name
-subprocess.run(['papirus-folders', '-C', color_name, '--theme', 'Papirus-Dark'])
+subprocess.run(["papirus-folders", "-C", color_name, "--theme", "Papirus-Dark"])

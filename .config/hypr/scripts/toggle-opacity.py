@@ -1,7 +1,8 @@
 import re
+import os
 
 # Define the file path for the configuration file
-config_file = "/home/simp/.config/hypr/custom/general.conf"
+config_file = os.path.expanduser("~/.config/hypr/custom/general.conf")
 
 
 # Function to toggle opacity values
