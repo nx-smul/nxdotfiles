@@ -12,8 +12,7 @@ require("neo-tree").setup({
   },
 })
 
-local neopywal = require("neopywal")
-neopywal.setup()
-vim.cmd.colorscheme("neopywal")
+local pywal16 = require("pywal16")
+pywal16.setup()
 
 -- unrelated
