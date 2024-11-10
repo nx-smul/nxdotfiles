@@ -1,13 +1,6 @@
 -- bootstrap lazy.nvim, LazyVim and your plugins
 require("config.lazy")
 
--- Initialize neopywal
-local neopywal = require("neopywal")
-neopywal.setup()
-
--- Apply the neopywal colorscheme
-vim.cmd.colorscheme("neopywal")
-
 -- NeoTree enable hidden files
 require("neo-tree").setup({
   filesystem = {
@@ -18,4 +11,9 @@ require("neo-tree").setup({
     },
   },
 })
+
+local neopywal = require("neopywal")
+neopywal.setup()
+vim.cmd.colorscheme("neopywal")
+
 -- unrelated
