@@ -7,4 +7,10 @@ return {
       vim.cmd.colorscheme("pywal16")
     end,
   },
+  {
+    "LazyVim/LazyVim",
+    opts = {
+      colorscheme = "pywal16",
+    },
+  },
 }
