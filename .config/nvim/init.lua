@@ -15,4 +15,5 @@ require("neo-tree").setup({
 local pywal16 = require("pywal16")
 pywal16.setup()
 
+vim.g.loaded_matchparen = true
 -- unrelated
