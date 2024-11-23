@@ -7,7 +7,7 @@ GLYPH='󰏘'
 # Genereting Wal color
 
 echo -e "\n${GREEN}${GLYPH} Genereting Pywal colors.${NC}"
-wal -i "$(swww query | head -1 | awk -F 'image: ' '{print $2}')" -n -q
+wal -i "$(swww query | head -1 | awk -F 'image: ' '{print $2}')" --backend haishoku --cols16
 
 # Directory containing PNG files
 icon_dir="$HOME/.config/hypr/scripts/icons/"
@@ -19,8 +19,8 @@ icons=("$icon_dir"pywal-*.png)
 
 # Check if there are PNG files
 if [ ${#icons[@]} -eq 0 ]; then
-  echo -e "${GREEN}${GLYPH} Error: No PNG files found in $icon_dir${NC}"
-  exit 1
+	echo -e "${GREEN}${GLYPH} Error: No PNG files found in $icon_dir${NC}"
+	exit 1
 fi
 
 # Choose a random icon
@@ -37,8 +37,8 @@ palette_icon="$icon_dir/palette.png"
 
 # Check if palette.png exists
 if [ ! -f "$palette_icon" ]; then
-  echo -e "${GREEN}${GLYPH} Error: palette.png not found in $icon_dir${NC}"
-  exit 1
+	echo -e "${GREEN}${GLYPH} Error: palette.png not found in $icon_dir${NC}"
+	exit 1
 fi
 
 #echo -e "${GREEN}${GLYPH} Sending notification with icon: $palette_icon${NC}"
@@ -70,6 +70,9 @@ echo -e "\n${GREEN}${GLYPH} Building Qt theme with script build-qt ${NC}"
 echo -e "\n${GREEN}${GLYPH} Building kvuntum theme with script build-kvuntum ${NC}"
 python ~/.config/hypr/scripts/build-kvantum.py
 
+echo -e "\n${GREEN}${GLYPH} Generating rofi colors ${NC}"
+~/.config/hypr/scripts/pywal-rofi
+
 echo -e "\n${GREEN}${GLYPH} changing spotiify theme (text) ${NC}"
 pywal-spicetify text
 spicetify apply
@@ -78,7 +81,7 @@ echo -e "\n${GREEN}${GLYPH} Running walogram (for telegram) ${NC}"
 walogram -s
 
 echo -e "\n${GREEN}${GLYPH} Running pywal-discord (for discord) ${NC}"
-pywal-discord
+pywal-discord -p ~/.config/vesktop/themes/
 
 echo -e "\n${GREEN}${GLYPH} Running zed-theme (for Zed) ${NC}"
 ~/.config/hypr/scripts/zed-theme

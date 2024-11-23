@@ -8,22 +8,19 @@
  **/
 
 /* Import Pywal colors */
-/* @import "$HOME/.config/rofi/colors.rasi"; **/
-
+@import "~/.config/rofi/colors.rasi"
 
 
 * {
-    font:                        "Iosevka 10";
-    background:                  #1F1F28BF;
-    background-alt:              #1F1F28;
-    foreground:                  #DCD7BA;
-    selected:                    #C0A36E;
-    active:                      #76946A;
-    urgent:                      #C34043;
+    font:                        "Iosevka 15";
+    width: 800;
+    height: 500;
+    actve: @active-background;
+    urgent: @urgent-background;
 }
 /*****----- Configuration -----*****/
 configuration {
-	modi:                       "drun";
+	modi:                       "drun,window";
     show-icons:                 true;
     icon-theme:              "Papirus";
     display-drun:               " 󱓞 ";
@@ -36,7 +33,6 @@ window {
     location:                    center;
     anchor:                      center;
     fullscreen:                  false;
-    width:                       700px;
     x-offset:                    0px;
     y-offset:                    0px;
 
@@ -45,11 +41,11 @@ window {
     padding:                     0px;
     border:                      0px solid;
     border-radius:               12px;
-    border-color:                @selected;
+    border-color:                @active-background;
     background-color:            @background;
     cursor:                      "default";
-    border: 1px;
-    border-color:                #72716966;
+    border: 2px;
+    border-color:                @active-background;
 }
 
 /*****----- Main Box -----*****/
@@ -60,7 +56,7 @@ mainbox {
     padding:                     20px;
     border:                      0px solid;
     border-radius:               0px 0px 0px 0px;
-    border-color:                @selected;
+    border-color:                @active-background;
     background-color:            transparent;
     children:                    [ "inputbar", "listview" ];
 }
@@ -71,10 +67,10 @@ inputbar {
     spacing:                     10px;
     margin:                      0px;
     padding:                     15px;
-    border:                      0px solid;
+    border:                      2px solid;
     border-radius:               12px;
-    border-color:                @selected;
-    background-color:            @background-alt;
+    border-color:                @selected-urgent-background;
+    background-color:            @selected-normal-background;
     text-color:                  @foreground;
     children:                    [ "prompt", "entry" ];
 }
@@ -96,7 +92,7 @@ entry {
     background-color:            inherit;
     text-color:                  inherit;
     cursor:                      text;
-    placeholder:                 "Amogus...";
+    placeholder:                 "Search apps ...";
     placeholder-color:           inherit;
 }
 
@@ -118,16 +114,16 @@ listview {
     padding:                     0px;
     border:                      0px solid;
     border-radius:               0px;
-    border-color:                @selected;
+    border-color:                @active-background;
     background-color:            transparent;
     text-color:                  @foreground;
     cursor:                      "default";
 }
 scrollbar {
     handle-width:                5px ;
-    handle-color:                @selected;
+    handle-color:                @selected-normal-background;
     border-radius:               0px;
-    background-color:            @background-alt;
+    background-color:            @background;
 }
 
 /*****----- Elements -----*****/
@@ -138,7 +134,7 @@ element {
     padding:                     5px;
     border:                      0px solid;
     border-radius:               12px;
-    border-color:                @selected;
+    border-color:                @selected-normal-background;
     background-color:            transparent;
     text-color:                  @foreground;
     cursor:                      pointer;
@@ -148,13 +144,13 @@ element normal.normal {
     text-color:                  @foreground;
 }
 element selected.normal {
-    background-color:            @selected;
+    background-color:            @selected-normal-background;
     text-color:                  @background;
 }
 element-icon {
     background-color:            transparent;
     text-color:                  inherit;
-    size:                        28px;
+    size:                        40px;
     cursor:                      inherit;
 }
 element-text {
@@ -171,7 +167,7 @@ error-message {
     padding:                     15px;
     border:                      2px solid;
     border-radius:               12px;
-    border-color:                @selected;
+    border-color:                @selected-normal-background;
     background-color:            @background;
     text-color:                  @foreground;
 }
