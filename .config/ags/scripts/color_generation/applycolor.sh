@@ -170,7 +170,7 @@ apply_ags() {
 
 apply_pywal() {
 	# generate pywal colors
-	python "$CONFIG_DIR"/scripts/gen-materialwal.py "$STATE_DIR"/scss/_material.scss --output "$CONFIG_DIR"/scripts/templates/pywal/pywal.json
+	python "$CONFIG_DIR"/scripts/color_generation/gen-materialwal.py "$STATE_DIR"/scss/_material.scss --output "$CONFIG_DIR"/scripts/templates/pywal/pywal.json
 	# apply pywal
 	wal -f "$CONFIG_DIR"/scripts/templates/pywal/pywal.json --cols16
 	# apply other scripts
@@ -184,9 +184,9 @@ colorlist=($colornames)     # Array of color names
 colorvalues=($colorstrings) # Array of color values
 
 apply_ags &
-apply_pywal &
 apply_hyprland &
 apply_hyprlock &
+apply_pywal &
 apply_lightdark &
 apply_gtk &
 apply_fuzzel &
