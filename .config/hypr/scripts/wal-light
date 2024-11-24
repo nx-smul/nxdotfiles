@@ -7,7 +7,7 @@ GLYPH='󰏘'
 # Genereting Wal color
 
 echo -e "\n${GREEN}${GLYPH} Genereting Pywal colors.${NC}"
-wal -i "$(swww query | head -1 | awk -F 'image: ' '{print $2}')" -l --backend colorz --cols16
+wal -i "$(swww query | head -1 | awk -F 'image: ' '{print $2}')" -l --cols16
 
 # Directory containing PNG files
 icon_dir="$HOME/.config/hypr/scripts/icons/"
@@ -29,8 +29,8 @@ icon=${icons[$random_index]}
 echo -e "${GREEN}${GLYPH} Selected icon: $icon${NC}"
 
 # Notification details
-title="Changing system colors"
-message="New colors goes brrr!"
+# title="Changing system colors"
+# message="New colors goes brrr!"
 
 # Path to palette.png
 palette_icon="$icon_dir/palette.png"

@@ -70,7 +70,7 @@ inputbar {
     border:                      2px solid;
     border-radius:               12px;
     border-color:                @selected-urgent-background;
-    background-color:            @selected-normal-background;
+    background-color:            @urgent-background;
     text-color:                  @foreground;
     children:                    [ "prompt", "entry" ];
 }
@@ -144,7 +144,7 @@ element normal.normal {
     text-color:                  @foreground;
 }
 element selected.normal {
-    background-color:            @selected-normal-background;
+    background-color:            @selected-active-background;
     text-color:                  @background;
 }
 element-icon {
