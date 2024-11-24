@@ -174,7 +174,6 @@ apply_pywal() {
 	# apply pywal
 	wal -f "$CONFIG_DIR"/scripts/templates/pywal/pywal.json --cols16
 	# apply other scripts
-	sleep 0.1
 	sh "$XDG_CONFIG_HOME"/hypr/scripts/gen-pywal
 }
 
@@ -185,9 +184,9 @@ colorlist=($colornames)     # Array of color names
 colorvalues=($colorstrings) # Array of color values
 
 apply_ags &
+apply_pywal &
 apply_hyprland &
 apply_hyprlock &
-apply_pywal &
 apply_lightdark &
 apply_gtk &
 apply_fuzzel &
