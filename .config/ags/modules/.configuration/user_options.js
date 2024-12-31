@@ -29,8 +29,8 @@ let configOptions = {
         'keyboardUseFlag': false, // Use flag emoji instead of abbreviation letters
         'layerSmoke': false,
         'layerSmokeStrength': 0.2,
-        'barRoundCorners': 1, // 0: No, 1: Yes
-        'fakeScreenRounding': 1, // 0: None | 1: Always | 2: When not fullscreen
+        'barRoundCorners': 0, // 0: No, 1: Yes
+        'fakeScreenRounding': 0, // 0: None | 1: Always | 2: When not fullscreen
     },
     'apps': {
         'bluetooth': "blueberry",
@@ -139,11 +139,11 @@ let configOptions = {
         'dateFormat': "%d/%m", // On notif time
     },
     'weather': {
-        'city': "",
+        'city': "Faridpur",
         'preferredUnit': "C", // Either C or F
     },
     'workspaces': {
-        'shown': 10,
+        'shown': 5,
     },
     'dock': {
         'enabled': false,
@@ -239,6 +239,10 @@ let configOptions = {
 let optionsOkay = true;
 function overrideConfigRecursive(userOverrides, configOptions = {}, check = true) {
     for (const [key, value] of Object.entries(userOverrides)) {
+        if (!check) {
+            configOptions[key] = value;
+            continue;
+        }
         if (configOptions[key] === undefined && check) {
             optionsOkay = false;
         }
@@ -246,8 +250,6 @@ function overrideConfigRecursive(userOverrides, configOptions = {}, check = true
             if (key === "substitutions" || key === "regexSubstitutions" || key === "extraGptModels") {
                 overrideConfigRecursive(value, configOptions[key], false);
             } else overrideConfigRecursive(value, configOptions[key]);
-        } else {
-            configOptions[key] = value;
         }
     }
 }

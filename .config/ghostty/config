@@ -1,0 +1,20 @@
+config-file = colors
+
+# shell-integration
+shell-integration = fish
+
+macos-option-as-alt = true
+mouse-hide-while-typing = true
+
+# window settings
+gtk-titlebar = false
+confirm-close-surface = false
+window-decoration = true
+window-padding-x = 25
+window-padding-y = 25
+window-padding-balance = true
+
+auto-update = check
+auto-update-channel = stable
+
+
