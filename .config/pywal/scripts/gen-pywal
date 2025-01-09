@@ -16,8 +16,8 @@ echo -e "\n${GREEN}${GLYPH} Running colors script (for hyprlock, lock screen) ${
 echo -e "\n${GREEN}${GLYPH} Aplying hyprland colors (for window borders) ${NC}"
 python ~/.config/hypr/scripts/colors-hypr.py
 
-echo -e "\n${GREEN}${GLYPH} Running colors-foot.py ${NC}"
-python ~/.config/hypr/scripts/colors-foot.py
+#echo -e "\n${GREEN}${GLYPH} Running colors-foot.py ${NC}"
+#python ~/.config/hypr/scripts/colors-foot.py
 
 echo -e "\n${GREEN}${GLYPH} Changing ghostty terminal colors ${NC}"
 python ~/.config/hypr/scripts/ghosttyPywal.py
@@ -25,9 +25,9 @@ python ~/.config/hypr/scripts/ghosttyPywal.py
 echo -e "\n${GREEN}${GLYPH} Running colors-folders.py (for papirus colored folders).${NC}"
 python ~/.config/hypr/scripts/colors-folders.py
 
-echo -e "\n${GREEN}${GLYPH} Building Qt theme with script build-qt ${NC}"
-~/.config/hypr/scripts/build-qt
-~/.config/hypr/scripts/build-qt6
+# echo -e "\n${GREEN}${GLYPH} Building Qt theme with script build-qt ${NC}"
+# ~/.config/hypr/scripts/build-qt
+# ~/.config/hypr/scripts/build-qt6
 
 # echo -e "\n${GREEN}${GLYPH} Building kvuntum theme with script build-kvuntum ${NC}"
 # python ~/.config/hypr/scripts/build-kvantum.py

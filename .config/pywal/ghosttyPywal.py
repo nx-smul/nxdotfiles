@@ -32,7 +32,7 @@ def write_config(config_path, formatted_colors):
     print("Colors have been generated and saved to the configuration file!")
 
 def main():
-    yaml_file = os.path.expanduser('~/.cache/wal/colors')  # Replace with the path to your YAML file
+    yaml_file = os.path.expanduser('~/.cache/wal/colors.yml')  # Replace with the path to your YAML file
     config_file = os.path.expanduser('~/.config/ghostty/colors')  # Replace with the path to your terminal configuration file
 
     # Read colors from the YAML file
