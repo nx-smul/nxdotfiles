@@ -7,18 +7,28 @@
  * Rofi Version: 1.7.3
  **/
 
-/* Import Pywal colors */
-@import "~/.config/rofi/colors.rasi"
+/***-- Import Material colors --***/
+*{
+  background:                      #171B20;
+  error:                           #FFB4AB;
+  onBackground:                    #E2E2E9;
+  onError:                         #690005;
+  onErrorContainer:                #FFDAD6;
+  onPrimary:                       #09305F;
+  onSecondary:                     #283141;
+  onSecondaryContainer:            #DAE2F9;
+  primary:                         #AAC7FF;
+  secondary:                       #BEC7DC;
+  secondaryContainer:              #3E4759;
+}
 
-
+/*****----- Configuration -----*****/
 * {
     font:                        "Iosevka 15";
     width: 800;
     height: 500;
-    actve: @active-background;
-    urgent: @urgent-background;
 }
-/*****----- Configuration -----*****/
+
 configuration {
 	modi:                       "drun,window";
     show-icons:                 true;
@@ -178,3 +188,4 @@ textbox {
     horizontal-align:            0.0;
     highlight:                   none;
 }
+
