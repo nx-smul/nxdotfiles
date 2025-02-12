@@ -1,0 +1,3 @@
+Defaults    env_keep += "USER_HOME XDG_DATA_DIRS"
+
+%wheel ALL=(ALL) NOPASSWD: /usr/bin/papirus-folders

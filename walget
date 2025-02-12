@@ -1,0 +1,130 @@
+#!/bin/bash
+
+# Set CONFIG_DIR at the top
+XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
+CONFIG_DIR="$XDG_CONFIG_HOME/ags"
+
+# Color definitions
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+BLUE='\033[0;34m'
+CYAN='\033[0;36m'
+MAGENTA='\033[0;35m'
+NC='\033[0m' # No Color
+
+# Directory to store wallpapers
+wallpapers_dir="$HOME/Pictures/wallpapers"
+mkdir -p "$wallpapers_dir"
+
+# Check for category and resolution arguments
+category=${1:-landscape} # Default to 'landscape' if no category is specified
+resolution=${2:-1080p}   # Default to 1080p if no resolution is specified
+
+# Determine the appropriate resolution query
+case "$resolution" in
+"4k") resolution_query="3840x2160" ;;
+"2k") resolution_query="2560x1440" ;;
+"1080p") resolution_query="1920x1080" ;;
+*) resolution_query="1920x1080" ;;
+esac
+
+# Function to fetch wallpaper URL from Wallhaven
+fetch_wallhaven() {
+  curl -s "https://wallhaven.cc/api/v1/search?categories=100&purity=100&resolutions=$resolution_query&sorting=random&q=$category" | jq -r '.data[0].path'
+}
+
+# Send a notification (requires notify-send)
+send_notification() {
+  # Check if not running in terminal (i.e., running as a background process)
+  if ! tty -s; then
+    local message=$1
+    local title=$2
+    if command -v notify-send &>/dev/null; then
+      notify-send "$title" "$message"
+    else
+      echo "$title: $message"
+    fi
+  fi
+}
+
+# Check if wallpaper already exists
+check_duplicate() {
+  local wallpaper_url=$1
+  local wallpaper_name=$(basename "$wallpaper_url")
+  local jpg_wallpaper_path="$wallpapers_dir/$wallpaper_name"
+
+  # If the wallpaper file already exists, return true
+  if [ -f "$jpg_wallpaper_path" ]; then
+    return 0 # Duplicate found
+  else
+    return 1 # No duplicate
+  fi
+}
+
+# Fetch wallpaper URL from Wallhaven
+wallpaper_url=$(fetch_wallhaven)
+provider="Wallhaven"
+
+# If the wallpaper already exists, skip download and fetch a new one
+while check_duplicate "$wallpaper_url"; do
+  wallpaper_url=$(fetch_wallhaven)
+done
+
+if [ -z "$wallpaper_url" ] || [ "$wallpaper_url" == "null" ]; then
+  send_notification "Failed to find a wallpaper. Please try again later." "Wallpaper Download Error"
+  exit 1
+fi
+
+wallpaper_name=$(basename "$wallpaper_url")
+wallpaper_name_noext="${wallpaper_name%.*}" # Remove the original extension
+
+# Define the target file path with a .jpg extension
+jpg_wallpaper_path="$wallpapers_dir/$wallpaper_name_noext.jpg"
+
+# Notify about setting the new wallpaper (only when not in terminal)
+send_notification "Downloading new wallpaper in the $category category..." "Downloading Wallpaper"
+
+# Display minimal output: only wallpaper provider and progress bar
+echo -e "${CYAN}[${MAGENTA}$provider${CYAN}]${NC} Downloading wallpaper..."
+
+# Download the new wallpaper and save as .jpg with wget progress bar
+wget --progress=bar:force:noscroll -O "$jpg_wallpaper_path" "$wallpaper_url"
+
+# Once the download is complete, notify about the success
+echo -e "${YELLOW}[${CYAN}Sucess${YELLOW}]${NC} Wallpaper downloaded successfully."
+
+# In terminal, ask user whether to set the wallpaper
+if tty -s; then
+  read -p "Do you want to set the new wallpaper? [y/N]: " user_choice
+  if [[ "$user_choice" =~ ^[Yy]$ ]]; then
+    # Automatically set the wallpaper if user confirms
+    custom_wallpaper_command="$CONFIG_DIR/scripts/color_generation/switchwall.sh"
+
+    # Ensure the script exists before running it
+    if [ -f "$custom_wallpaper_command" ]; then
+      # Execute the custom command
+      echo -e "${YELLOW}[${CYAN}Setting Wallpaper${YELLOW}]${NC} Setting the wallpaper..."
+      "$custom_wallpaper_command" "$jpg_wallpaper_path"
+      echo -e "${GREEN}[${CYAN}Success${GREEN}]${NC} Wallpaper set successfully!"
+    else
+      echo -e "${RED}[${CYAN}Error${RED}]${NC} Error: Custom wallpaper command script not found! Please check your configuration."
+    fi
+  else
+    echo -e "${YELLOW}[${CYAN}Skipped${YELLOW}]${NC} Wallpaper not set."
+  fi
+else
+  # If not in terminal, automatically set the wallpaper
+  custom_wallpaper_command="$CONFIG_DIR/scripts/color_generation/switchwall.sh"
+
+  # Ensure the script exists before running it
+  if [ -f "$custom_wallpaper_command" ]; then
+    # Execute the custom command
+    "$custom_wallpaper_command" "$jpg_wallpaper_path"
+    send_notification "Wallpaper set successfully!" "Setting Wallpaper"
+  else
+    send_notification "Error: Custom wallpaper command script not found! Please check your configuration." "Wallpaper Command Error"
+  fi
+fi
+
+exit 0

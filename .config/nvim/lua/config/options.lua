@@ -29,37 +29,29 @@ if vim.g.neovide then
   vim.g.neovide_padding_right = 25
   vim.g.neovide_padding_left = 25
 
+  -- Disable or tweak shadow settings for popups
+  vim.g.neovide_shadow_radius = 0 -- Removes the shadow (set it to 0)
+  vim.g.neovide_shadow_intensity = 0 -- Removes the shadow intensity
+  vim.g.neovide_popup_blur = 0 -- Optionally disable blur in popups
+
   -- pywal configs
-  -- Read the current Pywal colors
-  local function read_pywal_colors()
-    local file = io.open(os.getenv("HOME") .. "/.cache/wal/colors.json", "r")
-    if not file then
-      return nil
-    end
-    local json = file:read("*all")
-    file:close()
-    return vim.fn.json_decode(json)
-  end
-
-  -- Apply the Pywal colors to Neovide
+  -- Read and apply Pywal colors
   local function apply_pywal_colors()
-    local colors = read_pywal_colors()
-    if colors and colors.special then
-      vim.cmd("highlight Normal guibg=" .. colors.special.background)
-      vim.cmd("highlight NonText guibg=" .. colors.special.background)
+    local file = io.open(os.getenv("HOME") .. "/.cache/wal/colors.json", "r")
+    if file then
+      local colors = vim.fn.json_decode(file:read("*all"))
+      file:close()
+      if colors and colors.special then
+        vim.cmd("highlight Normal guibg=" .. colors.special.background)
+        vim.cmd("highlight NonText guibg=" .. colors.special.background)
+      else
+        print("Error: Could not read Pywal colors.")
+      end
     else
-      print("Error: Could not read Pywal colors.")
+      print("Error: Pywal colors file not found.")
     end
   end
 
-  -- Set up an autocommand to apply the colors when Neovide starts
-  vim.api.nvim_create_augroup("PywalColors", { clear = true })
-  vim.api.nvim_create_autocmd("VimEnter", {
-    group = "PywalColors",
-    pattern = "*",
-    callback = apply_pywal_colors,
-  })
-
-  -- Apply the colors immediately in case the script is sourced
-  apply_pywal_colors()
+  -- Apply Pywal colors on Neovide startup
+  vim.api.nvim_create_autocmd("VimEnter", { callback = apply_pywal_colors })
 end
